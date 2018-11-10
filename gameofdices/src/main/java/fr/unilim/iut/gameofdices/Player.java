@@ -1,9 +1,11 @@
 package fr.unilim.iut.gameofdices;
 
+import java.util.Optional;
+
 public class Player {
 	private String name;
 	private Dice dice;
-	private int lastValue = -1;
+	private Optional<Integer> lastValue = Optional.empty();
 
 	public Player(String name, Dice dice) {
 		this.name = name;
@@ -11,10 +13,12 @@ public class Player {
 	}
 
 	public void play() {
-		this.lastValue = dice.roll();
+		int firstRoll = dice.roll();
+		int secondRoll = dice.roll();
+		this.lastValue = Optional.of(Math.max(firstRoll, secondRoll));
 	}
 
-	public int getLastValue() {
+	public Optional<Integer> getLastValue() {
 		return lastValue;
 	}
 	
